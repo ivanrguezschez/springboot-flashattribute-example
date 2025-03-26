@@ -1,0 +1,19 @@
+<div data-th-fragment="messages-success" data-th-if="${globalMessage}" id="divMessageSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+  	<i class="bi bi-check2-circle"></i> <small>[[${globalMessage}]]</small>
+  	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<!--
+<div data-th-fragment="messages-danger-form" data-th-if="${#fields.hasErrors('*')}" id="divMessageDangerForm" class="alert alert-danger alert-dismissible fade show" role="alert">
+	<span data-th-each="error : ${#fields.errors('*')}">
+		<i class="bi bi-exclamation-circle"></i> <small>[[${error}]]</small><br/>
+	</span>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+-->
+<div data-th-fragment="messages-danger-form" data-th-if="${#fields.hasErrors('*')}" id="divMessageDangerForm" class="alert alert-danger alert-dismissible fade show" role="alert">
+	<div class="d-flex">
+		<i class="bi bi-exclamation-circle"></i>
+		<div class="ps-2"><p data-th-each="error : ${#fields.errors('*')}" class="m-0 p-0"><small>[[${error}]]</small></p></div>
+	</div>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

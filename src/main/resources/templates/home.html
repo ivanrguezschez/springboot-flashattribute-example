@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+	<header data-th-replace="~{fragments/header :: header}"></header>
+	<main class="container-fluid">
+		<div class="position-absolute top-50 start-50 translate-middle">
+			<p class="m-0 p-0 text-uppercase">[[#{home.p}]]</p>
+		</div>
+	</main>
+	<footer data-th-replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

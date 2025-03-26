@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+	<header data-th-replace="~{fragments/header :: header}"></header>
+	<main class="container-fluid my-4 px-4">
+		<div class="row d-flex align-items-center border-bottom border-primary py-2 mb-3 mx-0">
+			<div class="col-9 px-0">
+				<span class="text-primary text-uppercase fw-bold">[[#{title.customer}]]</span>
+			</div>
+			<div class="col-3 text-end px-0">
+				<a th:href="@{/customers/add}" class="btn btn-sm btn-primary">
+					<i class="bi bi-plus-lg"></i> [[#{button.add.customer}]]
+				</a>
+			</div>
+		</div>
+		<div data-th-replace="~{fragments/messages-alert :: messages-success}"></div>
+		<div data-th-if="${customers}" class="card">
+			<div class="card-header fw-bold"><small>[[#{card.header.list.customer}]]</small></div>
+			<div class="card-body">
+				<table data-th-if="${not #lists.isEmpty(customers)}" class="table table-sm table-bordered table-hover table-striped mb-0">
+					<thead>
+						<tr>
+							<th><small>[[#{table.head.label.id}]]</small></th>
+							<th><small>[[#{table.head.label.first.name}]]</small></th>
+							<th><small>[[#{table.head.label.last.name}]]</small></th>
+							<th><small>[[#{table.head.label.age}]]</small></th>
+							<th><small>[[#{table.head.label.email}]]</small></th>
+							<th width="90px">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-th-each="customer, status : ${customers}">
+							<td><small>[[${customer.id}]]</small></td>
+							<td><small>[[${customer.firstName}]]</small></td>
+							<td><small>[[${customer.lastName}]]</small></td>
+							<td><small>[[${customer.age}]]</small></td>
+							<td><small>[[${customer.email}]]</small></td>
+							<td class="text-center">
+								<a class="px-1" data-th-href="@{/customers/edit/{id}(id=${customer.id})}" data-th-title="#{link.customer.edit.title}" data-th-alt="#{link.defecto.edit.title}"><i class="bi bi-pencil"></i></a>
+								<a class="px-1" data-th-href="@{/customers/view/{id}(id=${customer.id})}" data-th-title="#{link.customer.view.title}" data-th-alt="#{link.defecto.view.title}"><i class="bi bi-eye"></i></a>
+								<a class="px-1" href="#" data-th-title="#{link.customer.delete.title}" data-th-alt="#{link.customer.delete.title}" data-bs-toggle="modal" data-bs-target="#modalDelete" data-th-data-bs-href="@{/customers/delete/{id}(id=${customer.id})}"><span class="bi bi-trash"></span></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div data-th-unless="${not #lists.isEmpty(customers)}" class="m-0"><small>[[#{info.message.notfound.customer}]]</small></div>
+			</div>
+		</div>
+		<!-- Modal Confirm Delete -->
+		<th:block data-th-replace="~{fragments/modalDelete :: modalDelete('info.message.remove.customer.dialog.title','info.message.remove.customer.dialog.message')}">modal</th:block>
+	</main>
+
+	<footer data-th-replace="~{fragments/footer :: footer}"></footer>
+	<th:block data-th-replace="~{fragments/loader :: loader}"></th:block>
+	<script type="module">
+		(function() {
+			'use strict';
+
+			const linksView = document.getElementsByClassName('bi bi-eye');
+			Array.from(linksView).forEach(function(linkView) {
+				linkView.addEventListener('click', () => showModal());
+			});
+			const linksEdit = document.getElementsByClassName('bi bi-pencil');
+			Array.from(linksEdit).forEach(function(linkEdit) {
+				linkEdit.addEventListener('click', () => showModal());
+			});
+			function showModal() {
+				const dialogLoaderModal = new bootstrap.Modal($('#dialogLoader'), {});
+				dialogLoaderModal.show();
+			}
+		})();
+	</script>
+</body>
+</html>

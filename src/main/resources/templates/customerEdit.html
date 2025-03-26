@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+	<header data-th-replace="~{fragments/header :: header}"></header>
+	<main class="container-fluid my-4 px-4">
+		<div class="row d-flex align-items-center border-bottom border-primary py-2 mb-3 mx-0">
+			<div class="col-12 px-0">
+				<span class="text-primary text-uppercase fw-bold">[[#{title.customer}]]</span>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header fw-bold">
+				<small data-th-if="${customerEditCommand.id}">[[#{card.header.edit.customer}]]</small>
+				<small data-th-unless="${customerEditCommand.id}">[[#{card.header.add.customer}]]</small>
+			</div>
+			<div class="card-body">
+				<form id="formCustomerEdit" data-th-action="@{/customers/save}" data-th-object="${customerEditCommand}" method="post">
+					<div data-th-replace="~{fragments/messages-alert :: messages-danger-form}"></div>
+					<div data-th-replace="~{fragments/required :: required}"></div>
+					<input type="hidden" data-th-field="*{id}" />
+					<div class="row mb-3">
+						<div class="col-3">
+							<label for="firstName" class="mb-0"><small>[[#{label.first.name}]] [[#{label.required}]]</small></label>
+							<input type="text"
+								   data-th-field="*{firstName}"
+								   maxlength="50"
+								   size="50"
+								   class="form-control form-control-sm"
+								   data-th-classappend="${#fields.hasErrors('firstName')}? 'is-invalid'"
+								   aria-describedby="firstNameFeedback" />
+							<div id="firstNameFeedback" data-th-if="${#fields.hasErrors('firstName')}" class="invalid-feedback" data-th-errors="*{firstName}"></div>
+						</div>
+						<div class="col-3">
+							<label for="lastName" class="mb-0"><small>[[#{label.last.name}]] [[#{label.required}]]</small></label>
+							<input type="text"
+								   data-th-field="*{lastName}"
+								   maxlength="50" size="50"
+								   class="form-control form-control-sm"
+								   data-th-classappend="${#fields.hasErrors('lastName')}? 'is-invalid'"
+								   aria-describedby="lastNameFeedback" />
+							<div id="lastNameFeedback" data-th-if="${#fields.hasErrors('lastName')}" class="invalid-feedback" data-th-errors="*{lastName}"></div>
+						</div>
+						<div class="col-2">
+							<label for="age" class="mb-0"><small>[[#{label.age}]] [[#{label.required}]]</small></label>
+							<input type="text"
+								   data-th-field="*{age}"
+								   maxlength="3" size="3"
+								   class="form-control form-control-sm"
+								   data-th-classappend="${#fields.hasErrors('age')}? 'is-invalid'"
+								   aria-describedby="ageFeedback" />
+							<div id="ageFeedback" data-th-if="${#fields.hasErrors('age')}" class="invalid-feedback" data-th-errors="*{age}"></div>
+						</div>
+						<div class="col-4">
+							<label for="email" class="mb-0"><small>[[#{label.email}]] [[#{label.required}]]</small></label>
+							<input type="text"
+								   data-th-field="*{email}"
+								   maxlength="100" size="100"
+								   class="form-control form-control-sm"
+								   data-th-classappend="${#fields.hasErrors('email')}? 'is-invalid'"
+								   aria-describedby="emailFeedback" />
+							<div id="emailFeedback" data-th-if="${#fields.hasErrors('email')}" class="invalid-feedback" data-th-errors="*{email}"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<a data-th-href="@{/customers/list}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-chevron-left"></i> [[#{button.volver}]]</a>
+						</div>
+						<div class="col text-end">
+							<button type="submit" class="btn btn-sm btn-outline-primary"><i class="bi bi-check-lg"></i> [[#{button.aceptar}]]</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+	<footer data-th-replace="~{fragments/footer :: footer}"></footer>
+	<th:block data-th-replace="~{fragments/loader :: loader}"></th:block>
+	<script type="module">
+		(function() {
+			'use strict';
+
+			const $firstNameField = $('#firstName');
+			$firstNameField.focus();
+
+			const $formCustomerEdit = $('#formCustomerEdit');
+			$formCustomerEdit.addEventListener('submit', (event) => {
+				const dialogLoaderModal = new bootstrap.Modal($('#dialogLoader'), {});
+				dialogLoaderModal.show();
+			});
+		})();
+	</script>
+</body>
+</html>
+

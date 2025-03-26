@@ -1,0 +1,33 @@
+<div data-th-fragment="modalDelete (titleKey,messageKey)" id="modalDelete" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+	    	<div class="modal-header">
+	        	<h5 class="modal-title" data-th-text="#{${titleKey}}"></h5>
+	        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      	</div>
+      		<div class="modal-body"><p data-th-text="#{${messageKey}}"></p></div>
+      		<div class="modal-footer">
+      			<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> <span data-th-text="#{button.no}"></span></button>
+				<a class="btn btn-sm btn-primary"><i class="bi bi-check-lg"></i> <span data-th-text="#{button.si}"></span></a>
+      		</div>
+    	</div>
+	</div>
+	<script data-th-inline="javascript" type="module">
+		(function() {
+			'use strict';
+		
+			const modalDelete = $('#modalDelete');
+			modalDelete.addEventListener('show.bs.modal', function (event) {
+				cleanDivMessageSuccess();
+
+				// Botón que dispara la ventana modal
+			  	const button = event.relatedTarget;
+			  	// Extraer la información de los atributos data-bs-*
+			  	const href = button.getAttribute('data-bs-href');
+				  
+			  	const btnSi = modalDelete.querySelector('.btn-primary');
+			  	btnSi.href = href;
+			});
+		})();
+	</script>
+</div>

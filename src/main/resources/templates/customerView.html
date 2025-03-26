@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+	<header data-th-replace="~{fragments/header :: header}"></header>
+	<main class="container-fluid my-4 px-4">
+		<div class="row d-flex align-items-center border-bottom border-primary py-2 mb-3 mx-0">
+			<div class="col-12 px-0">
+				<span class="text-primary text-uppercase fw-bold">[[#{title.customer}]]</span>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header fw-bold"><small>[[#{card.header.view.customer}]]</small></div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-3">
+						<label class="mb-0"><small>[[#{label.first.name}]]</small></label>
+						<p class="form-control form-control-sm">[[${customer.firstName}]]</p>
+					</div>
+					<div class="col-3">
+						<label class="mb-0"><small>[[#{label.last.name}]]</small></label>
+						<p class="form-control form-control-sm">[[${customer.lastName}]]</p>
+					</div>
+					<div class="col-2">
+						<label class="mb-0"><small>[[#{label.age}]]</small></label>
+						<p class="form-control form-control-sm">[[${customer.age}]]</p>
+					</div>
+					<div class="col-4">
+						<label class="mb-0"><small>[[#{label.email}]]</small></label>
+						<p class="form-control form-control-sm">[[${customer.email}]]</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a data-th-href="@{/customers/list}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-chevron-left"></i> [[#{button.volver}]]</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer data-th-replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
+
